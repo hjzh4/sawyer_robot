@@ -9,11 +9,11 @@
   <xacro:macro name="gazebo_minimum_inertia">
   <!--  In Gazebo, links with zero principal moment of inertia (ixx, iyy, izz) could lead to infinite acceleration under any finite torque application.
       http://gazebosim.org/tutorials/?tut=ros_urdf -->
-    <inertial>
+    <!-- inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="0.01"/>
       <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-    </inertial>
+  </inertial -->
   </xacro:macro>
 
   <material name="black">
@@ -171,7 +171,7 @@
     <axis xyz="0 0 1"/>
     <limit effort="80.0" lower="-3.0503" upper="3.0503" velocity="1.74"/>
 <xacro:if value="$(arg gazebo)">
-    <dynamics damping="15.0" friction="5.0"/>
+    <dynamics damping="5.0" friction="2.0"/>
 </xacro:if>
   </joint>
   <link name="head">
@@ -309,7 +309,7 @@
     <axis xyz="0 0 1"/>
     <limit effort="40.0" lower="-3.0439" upper="3.0439" velocity="1.957"/>
  <xacro:if value="$(arg gazebo)">
-    <dynamics damping="15.0" friction="5.0"/>
+    <dynamics damping="1.0" friction="0.5"/>
 </xacro:if>
   </joint>
   <link name="right_l4">
@@ -339,7 +339,7 @@
     <axis xyz="0 0 1"/>
     <limit effort="9.0" lower="-2.9761" upper="2.9761" velocity="3.485"/>
 <xacro:if value="$(arg gazebo)">
-    <dynamics damping="6.0" friction="1.0"/>
+    <dynamics damping="1.0" friction="0.5"/>
 </xacro:if>
   </joint>
   <link name="right_arm_itb">
@@ -387,7 +387,7 @@
     <axis xyz="0 0 1"/>
     <limit effort="9.0" lower="-2.9761" upper="2.9761" velocity="3.485"/>
 <xacro:if value="$(arg gazebo)">
-    <dynamics damping="5.5" friction="1.2"/>
+    <dynamics damping="1.0" friction="0.5"/>
 </xacro:if>
   </joint>
   <link name="right_hand_camera">
@@ -453,7 +453,11 @@
       </geometry>
     </collision>
 <xacro:if value="$(arg gazebo)">
-      <xacro:gazebo_minimum_inertia />
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+    </inertial>
 </xacro:if>
 <xacro:unless value="$(arg gazebo)">
     <inertial>
