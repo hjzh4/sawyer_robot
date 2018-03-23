@@ -1,21 +1,7 @@
 <?xml version="1.0" ?>
 <robot name="sawyer" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:arg name="gazebo" default="false"/>
-  <xacro:if value="$(arg gazebo)">
-    <!-- Gazebo Tags -->
-    <xacro:include filename="$(find sawyer_description)/urdf/sawyer_base.gazebo.xacro" />
-  </xacro:if>
-
-  <xacro:macro name="gazebo_minimum_inertia">
-  <!--  In Gazebo, links with zero principal moment of inertia (ixx, iyy, izz) could lead to infinite acceleration under any finite torque application.
-      http://gazebosim.org/tutorials/?tut=ros_urdf -->
-    <!-- inertial>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <mass value="0.01"/>
-      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-  </inertial -->
-  </xacro:macro>
-
+  <xacro:arg name="pedestal" default="true"/>
   <material name="black">
     <color rgba="0 0 0 1"/>
   </material>
@@ -50,6 +36,7 @@
     </inertial>
 </xacro:unless>
   </link>
+<xacro:if value="$(arg pedestal)">
   <link name="pedestal">
     <visual>
       <origin rpy="1.57079632679 0 -1.57079632679" xyz="0.26 0.345 -0.91488"/>
@@ -90,29 +77,27 @@
         <box size="0.77 0.7 0.31"/>
       </geometry>
     </collision>
-<xacro:if value="$(arg gazebo)">
-    <xacro:gazebo_minimum_inertia />
-</xacro:if>
   </link>
   <joint name="pedestal_feet_fixed" type="fixed">
     <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
     <parent link="base"/>
     <child link="pedestal_feet"/>
   </joint>
-  <joint name="torso_t0" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="base"/>
-    <child link="torso"/>
-  </joint>
   <joint name="pedestal_fixed" type="fixed">
     <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
     <parent link="base"/>
     <child link="pedestal"/>
   </joint>
+</xacro:if>
   <joint name="right_arm_mount" type="fixed">
     <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
     <parent link="base"/>
     <child link="right_arm_base_link"/>
+  </joint>
+  <joint name="torso_t0" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="base"/>
+    <child link="torso"/>
   </joint>
   <link name="right_arm_base_link">
     <inertial>
@@ -195,9 +180,6 @@
 </xacro:if>
   </joint>
   <link name="right_torso_itb">
-<xacro:if value="$(arg gazebo)">
-    <xacro:gazebo_minimum_inertia />
-</xacro:if>
 <xacro:unless value="$(arg gazebo)">
     <inertial>
       <origin rpy="0 0 0" xyz="0.000000 0.000000 0.000000"/>
