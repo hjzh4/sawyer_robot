@@ -53,7 +53,7 @@
     <implicitSpringDamper>1</implicitSpringDamper>
     <provideFeedback>true</provideFeedback>
   </gazebo>
-   <joint name="head_camera_optical_joint" type="fixed">
+  <joint name="head_camera_optical_joint" type="fixed">
     <origin xyz="0 0 0" rpy="${-pi} ${-pi/2.0} ${-pi/2.0}"/>
     <parent link="head_camera"/>
     <child link="head_camera_optical"/>
@@ -104,12 +104,12 @@
       </plugin>
     </sensor>
   </gazebo>
-  <joint name="right_hand_camera_optical_joint" type="fixed">
+  <!-- joint name="right_hand_camera_optical_joint" type="fixed">
     <origin xyz="0 0 0" rpy="${-pi} ${-pi/2.0} ${-pi/2.0}"/>
     <parent link="right_hand_camera"/>
     <child link="right_hand_camera_optical"/>
-  </joint>
-  <link name="right_hand_camera_optical"/>
+  </joint -->
+  <!-- link name="right_hand_camera_optical"/>
   <gazebo reference="right_hand_camera_optical">
     <sensor name="right_hand_camera" type="camera">
       <update_rate>10.0</update_rate>
@@ -123,7 +123,7 @@
         <clip>
           <near>0.02</near>
           <far>10</far>
-        </clip>
+        </clip -->
         <!-- Uncomment to add image Distortion -->
         <!-- distortion>
           <k1>-0.442</k1>
@@ -133,17 +133,17 @@
           <p2>0.0</p2>
           <center>365.734985 237.988998</center>
         </distortion -->
-      </camera>
+      <!-- /camera -->
       <!-- Uncomment to visualize image inside Gazebo -->
       <!-- visualize>true</visualize -->
-      <plugin filename="libgazebo_ros_camera.so" name="camera_controller">
+      <!-- plugin filename="libgazebo_ros_camera.so" name="camera_controller">
         <alwaysOn>true</alwaysOn>
         <updateRate>10.0</updateRate>
         <cameraName>right_hand_camera</cameraName>
         <imageTopicName>/io/internal_camera/right_hand_camera/image_raw</imageTopicName>
         <cameraInfoTopicName>/io/internal_camera/right_hand_camera/camera_info</cameraInfoTopicName>
         <frameName>right_hand_camera</frameName>
-        <focalLength>613.760435</focalLength>
+        <focalLength>613.760435</focalLength -->
         <!-- Uncomment to add image Distortion params to camera_info topic -->
         <!-- distortionK1>-0.442</distortionK1>
         <distortionK2>0.273</distortionK2>
@@ -152,10 +152,10 @@
         <distortionT2>0.0</distortionT2>
         <Cx>365.734985</Cx>
         <Cy>237.988998</Cy -->
-      </plugin>
+      <!-- /plugin>
     </sensor>
-  </gazebo>
-  <gazebo reference="screen">
+  </gazebo -->
+  <!--<gazebo reference="screen">
     <visual>
       <plugin name="screen_video_controller" filename="libgazebo_ros_video.so">
         <height>600</height>
@@ -164,7 +164,7 @@
         <robotNamespace>/robot</robotNamespace>
       </plugin>
     </visual>
-  </gazebo>
+  </gazebo>-->
   <!-- Transmissions -->
   <!-- Right Arm -->
   <transmission name="right_tran0">
